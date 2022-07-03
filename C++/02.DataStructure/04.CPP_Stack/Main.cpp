@@ -1,4 +1,5 @@
 #include "../Global.h"
+#include <stack>
 // 경험치를 저장할 수 있는 최대 개수
 const int MAX_EXP_COUNT = 100;
 
@@ -42,6 +43,13 @@ public:
 int main()
 {
 	ExpStack Stack;
+	std::stack<int> arr[10];
+	arr[0].push(0);
+	arr[0].push(1);
+	arr[0].push(2);
+	arr[0].push(3);
+	arr[0].push(4);
+
 
 	cout << "첫 번째 게임 종료 - 현재의 경험치 145.5f" << endl;
 	Stack.Push(145.5f);

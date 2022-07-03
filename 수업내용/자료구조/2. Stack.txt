@@ -1,0 +1,30 @@
+@ 헤더 : <stack>
+@ 라이브러리 : Standard Tamplate Library ( 스탠다드 템플릿 라이브러리 )
+@ 클래스 이름 : std::stack
+@ 컨테이너 방식 : Container Adapter ( 컨테이너 어댑터 )
+@ 특징 :
+	ㆍLIFO ( Last In First Out ) 마지막에 들어온 요소가 가장 먼저 나간다.
+	ㆍVector/List/Deque( 시퀸스 컨테이너)에 붙어서 사용이 가능하다. 컨테이너의 대한 래퍼 역활
+	ㆍDefault 는 deque container 기반으로 작동한다.
+	ㆍ주로 그래프의 "깊이 우선 탐색" (DFS)에서 사용된다.
+	ㆍ재귀적 함수를 호출 할 때 사용
+	ㆍStack은 동적/정적 배열로 만들 수 있다. ( 주로 고정 배열을 사용하는데 사용된다. )
+	ㆍ
+	ㆍ
+	ㆍ
+
+
+@ 추가 설명
+Stack은 내부적으로 vector/deque/list container 구조로 구현이 되어있되,
+stack이라는 포장지로 잘 감싸서 stack과 같이 작동하도록 멤머 함수등을 지원해 주는 것이다.
+추측 : 주로 Log 관리 및 채팅창을 구현하는데 쓰면 좋을 듯 하다.
+
+
+@ 사용해야 하는 경우
+	ㆍ
+	ㆍ
+	ㆍ
+	ㆍ
+
+@ 궁금증
+Vector/List/Deque( 시퀸스 컨테이너)에 붙어서 사용이 가능하다.
