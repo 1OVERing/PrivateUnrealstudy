@@ -1,0 +1,33 @@
+@ 헤더 : <queue>
+@ 라이브러리 : Standard Tamplate Library ( 스탠다드 템플릿 라이브러리 )
+@ 클래스 이름 : std::queue
+@ 컨테이너 방식 : Container Adapter ( 컨테이너 어댑터 )
+@ 특징 :
+	ㆍFIFO ( First In, First Out ) 요소를 뒤에 추가하고 앞에서 삭제하고 반환한다.
+	ㆍdeque / list Container에 붙여서 사용이 가능하다.
+	ㆍDefault는 deque container 기반으로 설정되어 있다.
+	ㆍvector는 pop_front와 같은 앞 데이터 삭제 함수가 없기에 vector 와는 불가능하다.
+	ㆍ그래프의 " 너비 우선 탐색 (BFS) "에 활용된다.
+	ㆍiterator도 존재하지 않고, find 함수도 사용할 수 없으므로 탐색/검색이 불가능하다.
+	ㆍ
+	ㆍ
+	ㆍ
+
+
+@ 추가 설명
+CreateQueue(e) 함수로 크기가 e크기인 빈 큐를 생성하고 이를 반환한다.
+queue의 경우 내부 함수의 표기가 다른 것이 있기에 따로 알아둘 필요가 있다.
+Enqueue(e) : 전달된 요소 e를 큐의 맨 뒤에 추가한다.
+Dequeue()  : 큐가 비어있지 않으면 맨 앞 요소를 삭제하고 반환한다.
+.Peek()	   : 큐가 비어있지 않으면 맨 앞 요소를 삭제하지 않고 반환한다.
+IsFull	   : 큐가 가득 차 있으면 true 그렇지 않다면 false 를 반환한다.
+Queue는 탐색/검색 할수 있는 기능이 존재하지 않아 데이터를 찾고싶다면 pop을 통해 하나씩 다 꺼내보는
+방법 밖에 없다.
+
+@ 사용해야 하는 경우
+	ㆍFIFO, 선입선출이 해당되는 상황
+	ㆍ검색/탐색이 전혀 필요가 없는 상황
+	ㆍ
+	ㆍ
+
+@ 궁금증

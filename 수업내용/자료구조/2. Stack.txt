@@ -17,7 +17,11 @@
 @ 추가 설명
 Stack은 내부적으로 vector/deque/list container 구조로 구현이 되어있되,
 stack이라는 포장지로 잘 감싸서 stack과 같이 작동하도록 멤머 함수등을 지원해 주는 것이다.
+예를 들어 stack<int,vector> 타입으로 지정하고 stack 내부 함수인 _Get_container()로 vector 함수를
+가져와 사용할 수 있다. 간단한 예로 vector 같이 begin end 만 있어야 쓸수 있는 ranged loop 를 사용할 수 있다.
+vector 는 기능적으로만 가져오는 것이지 vector로 값을 저장한다는 것은 불가능하다.
 추측 : 주로 Log 관리 및 채팅창을 구현하는데 쓰면 좋을 듯 하다.
+
 
 
 @ 사용해야 하는 경우
