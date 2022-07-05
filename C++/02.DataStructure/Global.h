@@ -5,6 +5,7 @@
 #include <list>
 #include <unordered_map>
 #include <stdio.h>
+#include <queue>
 
 using std::cout;
 using std::cin;

@@ -1,0 +1,64 @@
+@ 아키텍처 - 설계
+바로 코딩하면서 설계를 하는 것은 좋은 습관은 아니다.
+페이퍼에 어느정도는 구상을 하고 코딩에 들어가는 것이 좋다.
+
+@ CriticalSection(크리티컬 섹션)
+운영체제가 지원하며,synchapi.h에 속해있다.
+쓰레드 동기화 방법중 유저모드에 해당되며 가볍고 쉬운 것이 특징이자 강점이다.
+동기화 기법들이 대부분 쓰레드에 사용되는 리소스들의 다른 접근을 막는 역활을 한다.
+크리티컬 섹션을 통해서 작업을 대기중인 쓰레드는 cpu 시간을 포기하게 하고,
+스위칭이 발생하지 않는다.
+VOID InitializeCriticalSection(LPCRITICAL_SECTION InCriticalSection);	- 초기화
+VOID EnterCriticalSection (LPCRITICAL_SECTION InCriticalSection);	- 쓰레드 실행
+VOID LaveCriticalSection (LPCRITICAL_SECTION InCriticalSection);	- 쓰레드 종료
+VOID DeleteCriticalSection(LPCRITICAL_SECTION InCriticalSection);	- 파괴
+보통 이 함수들로 묶어 작업을 진행한다.
+
+@ Queue
+Container Adaptor 형식이다.
+Queue같은 경우 큐의 다른 한쪽 끝을 rear로 정해
+삽입 연산만 수행하며, 너비 우선 탐색(BFS)에 활용된다.
+데이터가 순차적으로 처리돼야하는 경우에 활용된다.
+사용자의 입력처리 / 네트워크의 버퍼 등
+엔진에서도 Thread활용시 렌더큐를 사용한다. # 컨텍스트 스위칭
+앞을 가르키는 front / 뒤를 가르키는 rear  둘다 처음 같은 앞에를 가르키다가
+Enqueue와 Dequeue로 가다 보면 결국 둘다 메모리의 끝을 가르키는 상황이 발생할 수 있다.
+그래서 메모리의 할당 삭제는 할당 메모리 내에서 끝 메모리에서 추가할 시 앞메모리로 옮겨준다.
+그래서 나머지 연산을 쓴다. 인덱스값의 %(나머지연산)을 하여 전체를 인덱스를 나눠 준다.
+만약 마지막에서 첫번째를 참조한다면 리스트형식으로 될 것이다. 그래서 배열을
+살리는 방향이라면 나머지 연산을 활용해서 다음 인덱스를 찾는 것이 좋은 것이다.
+이걸 원형 큐라고 한다.
+
+
+@ 템플릿 특수화,상속
+
+
+@ UI의 나머지 연산
+문자의 이미지(폰트)를 할때 몫과 나머지를 구해 1234가 있으면 1000자리로 나눠 1을 가져와
+그리고 100을 나눠 2를 그리는 작업을 한다.
+
+
+
+
+@ Priority_Queue ( 우선순위 큐)
+priority_queue container는 
+일반 queue는 맨 앞의 요소로 가장 먼저 저장한 요소가 들어가지만,
+priority_queue는 가장 큰 값이 맨 앞 요소로 들어가게 된다.
+
+멤버함수는 일반Queue와 동일하며,
+priority_queue는 queue 헤더 파일에 정의되어 있다.
+
+
+
+@ Deque (Doule Ended Queue)
+Queue의 기능적으로 추가한 클래스이다.
+STL에서 지원하며 sequence container 형태이다.
+삽입과 삭제가 빠르다.
+벡터를 생각하면 4 이 있으면 크게 할당하면 복사를 하게된다. deque는 복사를 하지않는다.
+deque는 연속된 메모리에 모아져있지 않는다. 
+4개를 고정으로 선언하고 추가 할당 경우 4개 짜리를 추가 할당을 하는데 연속된 메모리가
+아니고 띄엄띄엄 데이터를 보관하고 서로를 엮어(참조)서 관리한다.
+표준 클래스중 매우 잘만들었다.
+
+@ O(1)
+속도 체크 하는 표기법이다. 상수1이 가장 빠른 표기법이다.
