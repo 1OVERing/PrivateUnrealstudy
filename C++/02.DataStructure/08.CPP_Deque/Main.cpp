@@ -1,14 +1,13 @@
 #include "Deque.h"
 #include <deque>
-// #include <synchapi.h>
-#include <Windows.h>
+// #include <Windows.h>
 
 
 int main()
 {
-	CRITICAL_SECTION SC;
-	InitializeCriticalSection(&SC);
-	EnterCriticalSection(&SC);
+	// CRITICAL_SECTION SC;
+	// InitializeCriticalSection(&SC);
+	// EnterCriticalSection(&SC);
 	Deque d;
 	for (size_t i = 0; i < 10; i++)
 	{
@@ -19,6 +18,6 @@ int main()
 	}
 	d.Display();
 
-	LeaveCriticalSection(&SC);
-	DeleteCriticalSection(&SC);
+	//LeaveCriticalSection(&SC);
+	//DeleteCriticalSection(&SC);
 }

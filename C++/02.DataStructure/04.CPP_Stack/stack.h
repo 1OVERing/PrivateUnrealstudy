@@ -1,55 +1,79 @@
 #pragma once
-#include "../Global.h"
 
+#include <iostream>
 
-// const int MAX_COUNT = 100;
+//const int MAX_COUNT = 100;
 
-
-template<typename T,size_t capacity>
+template<typename T, size_t capacity>
 class Stack
 {
-private:
-	T data[capacity];
-	size_t top; // 제일 위의 인덱스를 가르키는 변수
-	
-
-
-
 public:
-	Stack() : top(0),data()
-	{}
-	~Stack() {}
-
-public:
-	void Clear()
-	{top = 0;}
-	size_t Count() const
-	{return top;}
-	bool IsEmpty() const
-	{return top == 0;}
-	bool IsFull()const
-	{return top == capacity;}
-	bool push(const T& value)
+	Stack()
+		: top(0)
 	{
+	}
+
+	~Stack()
+	{
+	}
+
+	void Clear()
+	{
+		top = 0;
+	}
+
+	// 스택에 저장된 데이터 요소의 수.
+	size_t Count() const
+	{
+		return top;
+	}
+
+	// 스택이 비었는지 확인.
+	bool IsEmpty() const
+	{
+		return top == 0;
+	}
+
+	// 스택이 가득찼는지 확인.
+	bool IsFull() const
+	{
+		return top == capacity;
+	}
+
+	// 데이터 추가.
+	bool Push(const T& value)
+	{
+		// 저장 가능한지 확인.
 		if (top >= capacity)
 		{
 			__debugbreak();
 			return false;
 		}
 
-		this->data[top++] = value;
-		cout << "stack 데이터 입력 : " << value << endl;
+		// 저장.
+		data[top] = value;
+		++top;
+
 		return true;
 	}
-	T pop()
+
+	// 데이터 추출.
+	T Pop()
 	{
+		// 저장된 데이터가 있는지 확인.
 		if (IsEmpty() == true)
 		{
 			__debugbreak();
 			return 0;
 		}
 
-		cout << "stack 데이터 삭제 : " << data[--top] << endl;
+		// 추출.
+		--top;
 		return data[top];
 	}
+
+private:
+	// 데이터 정의.
+	T data[capacity];
+	size_t top;
 };
