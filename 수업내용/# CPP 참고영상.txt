@@ -1,0 +1,25 @@
+@ CPP
+
+#CppCon 2016: Jason Turner “Practical Performance Practices"
+https://www.youtube.com/watch?v=uzF4u9KgUWI
+
+#Back to Basics: Templates (part 1 of 2) - Bob Steagall - CppCon 2021
+https://www.youtube.com/watch?v=XN319NYEOcE
+
+#Back to Basics: Templates (part 2 of 2) - Bob Steagall - CppCon 2021
+https://www.youtube.com/watch?v=2Y9XbltAfXs
+
+
+
+
+@ Meth
+
+#Math for Game Programmers: Understanding Homogeneous Coordinates
+https://www.youtube.com/watch?v=o1n02xKP138
+
+#Math for Game Programmers: Interaction With 3D Geometry
+https://www.youtube.com/watch?v=GpsKrAipXm8
+
+
+#Unite 2015 - A Little Math for Your Big Ideas
+https://www.youtube.com/watch?v=OOeA0pJ8Y2s&list=PLVmb_qp6XRcwzN9l5mcia6Gh3HOgut3bH&index=10

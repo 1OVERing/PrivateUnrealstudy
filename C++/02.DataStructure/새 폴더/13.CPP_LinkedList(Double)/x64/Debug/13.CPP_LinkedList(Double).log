@@ -1,0 +1,18 @@
+﻿  Main.cpp
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(193,2): error C3855: 'LinkedList': 템플릿 매개 변수 '__formal'이(가) 선언과 호환되지 않습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\Main.cpp(11,25): error C2061: 구문 오류: 식별자 'Program'
+  Program.cpp
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(193,2): error C3855: 'LinkedList': 템플릿 매개 변수 '__formal'이(가) 선언과 호환되지 않습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\Program.cpp(14,49): error C2027: 정의되지 않은 형식 'LinkedList'을(를) 사용했습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(7): message : 'LinkedList' 선언을 참조하십시오.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\Program.cpp(19,2): warning C4150: 불완전한 형식 'LinkedList'에 대한 포인터를 삭제했습니다. 소멸자가 호출되지 않습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(7): message : 'LinkedList' 선언을 참조하십시오.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\Program.cpp(37,7): error C2027: 정의되지 않은 형식 'LinkedList'을(를) 사용했습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(7): message : 'LinkedList' 선언을 참조하십시오.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\Program.cpp(39,6): error C2027: 정의되지 않은 형식 'LinkedList'을(를) 사용했습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(7): message : 'LinkedList' 선언을 참조하십시오.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\Program.cpp(56,7): error C2027: 정의되지 않은 형식 'LinkedList'을(를) 사용했습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(7): message : 'LinkedList' 선언을 참조하십시오.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\Program.cpp(58,6): error C2027: 정의되지 않은 형식 'LinkedList'을(를) 사용했습니다.
+C:\LeeHoGeun\C++\02.DataStructure\13.CPP_LinkedList(Double)\LinkedList.h(7): message : 'LinkedList' 선언을 참조하십시오.
+  코드를 생성하고 있습니다...
