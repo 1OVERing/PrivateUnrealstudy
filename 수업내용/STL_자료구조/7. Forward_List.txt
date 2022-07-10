@@ -1,0 +1,32 @@
+@ 헤더 : <forward_list>
+@ 라이브러리 : Standard Tamplate Library ( 스탠다드 템플릿 라이브러리 )
+@ 클래스 이름 : std::forward_list
+@ 컨테이너 방식 :
+@ 특징 : Sequence Container
+	ㆍforward_list는 List보다 보다 빠른 삽입/삭제를 지원하고 있다.
+	ㆍ삽입과 삭제는 지정 요소의 다음 요소에 한해서만 가능하다. (단방향 특징)
+	ㆍRandom Access 기능은 지원하지 않는다.
+	ㆍSingly Linked List의 형태로 구현되어 있다.
+	ㆍSize 함수를 제공하고 있지 않는다.
+	ㆍList를 베이스로 구현했지만 조금 더 성능을 중요시 구현되어있다.
+	ㆍ구현의 복잡성/성능을 따져 insert/erase는 제공하지 않는다.
+
+
+@ 추가 설명
+Doble Linked List 인 STL <list>에 비교해 Single LInked List인 <forward_list>는 
+list보다 메모리 사용량이나 처리 속도면에서 조금 유리하다.
+
+Size 함수를 제공하고 있지 않아 Size를 알고싶으면 다음과 같이 구한다.
+size_t size = std::distance( list.begin() ,list.end() )
+
+
+
+
+@ 사용해야 하는 경우
+	ㆍdouble linked list 까지 필요 없는 경우
+	ㆍ
+	ㆍ
+	ㆍ
+
+@ 궁금증
+왜 있는건지 매우 궁금하다..(언젠간 쓸일이 있을려나..)

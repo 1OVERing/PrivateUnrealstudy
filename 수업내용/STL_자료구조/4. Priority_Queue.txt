@@ -1,0 +1,22 @@
+@ 헤더 : <queue>
+@ 라이브러리 : Standard Tamplate Library ( 스탠다드 템플릿 라이브러리 )
+@ 클래스 이름 : std::priority_queue
+@ 컨테이너 방식 : Container Adapter
+@ 특징 :
+	ㆍPriority_Queue (프라이오어러티 큐: 우선순위 큐) 라고 부른다.
+	ㆍ일반 Queue와 기본적으로는 동일한 구조를 가지고 있다.
+	ㆍQueue와는 다르게 가장 큰 값이 맨 앞 메모리에 저장된다.
+
+
+@ 추가 설명
+Queue와 다른점은 Queue는 가장 먼저 삽입한 데이터가 가장 앞에 들어가지만
+Priority_Queue는 들어간 데이터중 가장 큰 값이 가장 앞에 삽입이 된다.
+
+
+@ 사용해야 하는 경우
+	ㆍ
+	ㆍ
+	ㆍ
+	ㆍ
+
+@ 궁금증

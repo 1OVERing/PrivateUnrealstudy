@@ -14,13 +14,13 @@ public:
 	bool operator!=(const TPair<KeyType, ValueType>& other)
 	{return key != other.key && value != other.value;}
 	bool operator>(const TPair<KeyType, ValueType>& other)
-	{return key > other.key}
+	{return key > other.key;}
 	bool operator<(const TPair<KeyType, ValueType>& other)
-	{return key > other.key}
+	{return key > other.key;}
 	bool operator>=(const TPair<KeyType, ValueType>& other)
-	{return key >= other.key}
+	{return key >= other.key;}
 	bool operator<=(const TPair<KeyType, ValueType>& other)
-	{return key <= other.key}
+	{return key <= other.key;}
 public:
 	TPair() : key(),value() {}
 	TPair(const KeyType& Key, const ValueType& Value) : key(Key),value(Value){}
