@@ -20,7 +20,7 @@ public:
 	void Print();
 
 private:
-	int GetHash(int key);
+	// int GetHash(int key);
 
 public:
 	HashTable();

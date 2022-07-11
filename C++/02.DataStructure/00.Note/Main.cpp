@@ -33,17 +33,25 @@
 //
 //	std::cin.get();
 //}
-/*--------------------------forward_list--------------------------*/
+/*--------------------------Hash--------------------------*/
+//#include <iostream>
+//int main()
+//{
+//	std::hash<char> b;
+//
+//	size_t hash = 0;
+//	hash = b._Do_hash('a');
+//
+//	float a = (int)hash;
+//	a = std::abs(a);
+//
+//	std::cin.get();
+//}
+
+/*--------------------------  --------------------------*/
 #include <iostream>
+
 int main()
 {
-	std::hash<char> b;
-
-	size_t hash = 0;
-	hash = b._Do_hash('a');
-
-	float a = (int)hash;
-	a = std::abs(a);
-
-	std::cin.get();
+	std::pair<int, int> id = std::pair<int,int>(1, 2);
 }

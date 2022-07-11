@@ -1,0 +1,48 @@
+﻿  Main.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xmemory(680,47): error C2440: '초기화 중': 'item'에서 '_Objty'(으)로 변환할 수 없습니다.
+          with
+          [
+              _Objty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xmemory(680,47): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\list(582): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,item&>(_Alloc &,_Objty *const ,item &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::allocator<std::_List_node<int,std::_Default_allocator_traits<std::allocator<int>>::void_pointer>>,
+              _Ty=int,
+              _Objty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\list(584): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,item&>(_Alloc &,_Objty *const ,item &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::allocator<std::_List_node<int,std::_Default_allocator_traits<std::allocator<int>>::void_pointer>>,
+              _Ty=int,
+              _Objty=int
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\list(997): message : 컴파일되는 함수 템플릿 인스턴스화 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<item&>(_Alnode &,item &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=int,
+              _Alloc=std::allocator<int>,
+              _Alnode=std::allocator<std::_List_node<int,std::_Default_allocator_traits<std::allocator<int>>::void_pointer>>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\list(1003): message : 컴파일되는 함수 템플릿 인스턴스화 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<item&>(_Alnode &,item &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=int,
+              _Alloc=std::allocator<int>,
+              _Alnode=std::allocator<std::_List_node<int,std::_Default_allocator_traits<std::allocator<int>>::void_pointer>>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\list(977): message : 컴파일되는 함수 템플릿 인스턴스화 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<item&>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,item &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=int,
+              _Alloc=std::allocator<int>
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\list(978): message : 컴파일되는 함수 템플릿 인스턴스화 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<item&>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,item &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=int,
+              _Alloc=std::allocator<int>
+          ]
+C:\LeeHoGeun\C++\03.Container\01.STL_List3\Main.cpp(46): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::list<int,std::allocator<int>>::emplace_back<item&>(item &)'에 대한 참조를 확인하세요.

@@ -8,8 +8,6 @@ using std::endl;
 int main()
 {
 	HashTable table;
-
-
 	while (true)
 	{
 		std::string key = {};
@@ -35,7 +33,6 @@ int main()
 			cout << "추가하실 데이터을 입력해주세요\n";
 			cin >> value;
 			table.Add(key, value);
-			cout << "데이터가 성공적으로 저장되었습니다.\n";
 
 			cout << "\n엔터 : 뒤로가기\n";
 			system("PAUSE");
@@ -80,7 +77,6 @@ int main()
 		}
 
 	}
-
 	system("cls");
 	cout << "프로그램을 종료하겠습니다.\n";
 	std::cin.get();
