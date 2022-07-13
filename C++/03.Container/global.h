@@ -12,8 +12,8 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-#define clean system("cls");
-#define Pause system("pause");
+#define Clean system("cls");
+#define Pause /*system("pause")*/std::cin.get();
 
 template<typename T>
 void Scan(const T& container)
@@ -24,5 +24,5 @@ void Scan(const T& container)
 
 	cout << endl;
 	Pause;
-	clean;
+	Clean;
 }
