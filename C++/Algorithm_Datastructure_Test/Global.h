@@ -7,6 +7,8 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include <algorithm>
+#include <array>
 
 using std::cout;
 using std::cin;

@@ -7,6 +7,13 @@ void SetPosition(short x, short y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
 }
 
+void QueueSwap(std::queue<char>& Q)
+{
+	char chf = Q.front();
+	Q.pop();
+	Q.push(chf);
+}
+
 int main()
 {
 	cout << "문자열을 입력해주세요" << endl;
@@ -21,12 +28,14 @@ int main()
 
 	while (true)
 	{
-
 		Sleep(200);
+		system("cls");
+		cout << "문자열 회전!!!!" << endl;
 		SetPosition(0, 1);
+		QueueSwap(ch);
 		for(auto iter : ch._Get_container())
-			cout << iter;
-
+		 	cout << iter;
+	
 
 	}
 }
