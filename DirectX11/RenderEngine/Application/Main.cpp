@@ -8,12 +8,13 @@
 
 // DirectX11 헤더.
 #include <d3d11.h>
-#include <d3dcompiler.h> // 쉐이더 컴파일러 기능 제공
+#include <d3dcompiler.h>	// 쉐이더 컴파일러 기능 제공
+#include <dxgi1_3.h>
 
-// lib 링킹			밑처럼 써서 lib를 가져올 수 있지만 아니면 옵션의 링크에 입력에 추가하면된다.
+// lib 링킹	밑처럼 써서 lib를 가져올 수 있지만 옵션의 링크에 입력에 추가종속성에서 추가 하면된다.
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"d3dcompiler.lib")
-
+#pragma comment(lib,"dxgi.lib")
 
 void InializeDevice();
 
@@ -28,12 +29,9 @@ long height = 720;					// 창의 높이
 // DX 변수 선언
 ID3D11Device* device = nullptr;
 ID3D11DeviceContext* context = nullptr;
-IDXGISwapChain* swapChain = nullptr;
 
-
-
-
-
+IDXGISwapChain1* swapChain = nullptr;
+// 함수 전방선언
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // __stdcall , __cdecl의 대해
@@ -49,7 +47,6 @@ wwinmain함수 선언의 파라미터값을 긇어와 사용해준다.*/
 // _In_ , _In_opt_의 대해
 /* _In_, _In_opt_ 는 윈도우 시스템 프로그래밍할때만 사용되며,
 파라미터의 input output을 명시적으로 해준다.*/
-
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -130,6 +127,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 	return 0;
 }
 
+// DX 디바이스 초기화
 void InializeDevice()
 {
 	unsigned int Flag = 0;
@@ -137,57 +135,124 @@ void InializeDevice()
 #if _DEBUG
 	// 디버그 모드일 경우
 	// 장치 생성 과정에서 오류가 발생했을 때 디버깅 정보를 더 많이 전달해달라는 옵션 추가.
-	Flag ^= D3D11_CREATE_DEVICE_DEBUG;
+	Flag = D3D11_CREATE_DEVICE_DEBUG;
 #endif
+
+	Flag |= D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 
 	// DX11 버젼 지정
 	// 상위 버젼을 앞에 넣으면 먼저 시도해보고 지원하지 않으면 다음 버전으로 넘어간다.
 	D3D_FEATURE_LEVEL level[] = { D3D_FEATURE_LEVEL_11_1 , D3D_FEATURE_LEVEL_11_0 };
 
 	// 스왑체인 생성을 위한 구조체 설정
-	DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
+	//DXGI_SWAP_CHAIN_DESC1 swapChainDesc = {};
 
-	swapChainDesc.BufferCount = 1; // 백버퍼 개수 설정
-	swapChainDesc.BufferDesc.Width = ::width;	// 프레임 너비
-	swapChainDesc.BufferDesc.Height = ::height;	// 프레임 높이
-	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;// 이미지 채널별 포맷
-	swapChainDesc.Windowed = true;				// 창 모드 여부
-	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;// 프레임(이미지)의 용도 설정 = 렌더링
-	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;// 프론트 <-> 백 버퍼 변경할 때 효과 넣을지 설정
-	swapChainDesc.SampleDesc.Count = 1;			// 멀티샘플링 할지 여부 -> 1 안함
-	swapChainDesc.SampleDesc.Quality = 0;		// 멀티샘플링 품질 설정 -> 기본 값(count - 1)
-	swapChainDesc.OutputWindow = hwnd;			// DX가 그릴 창 핸들
+	//swapChainDesc.BufferCount/*백버퍼 개수 설정*/ = 1;
+	//swapChainDesc.BufferDesc.Width/*프레임 너비*/ = ::width;
+	//swapChainDesc.BufferDesc.Height/*프레임 높이*/ = ::height;
+	//swapChainDesc.BufferDesc.RefreshRate.Numerator/*프레임율 분자*/ = 60;
+	//swapChainDesc.BufferDesc.RefreshRate.Denominator/*프레임율 분모*/= 1;
+	//swapChainDesc.BufferDesc.Format/*이미지 채널별 포맷*/ = DXGI_FORMAT_R8G8B8A8_UNORM;
+	//swapChainDesc.BufferUsage/*프레임(이미지)의 용도 설정 = 렌더링*/ = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	//swapChainDesc.BufferDesc.ScanlineOrdering/*레스터가 표면에 이미지를 만드는 방법 플래그*/ = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	//swapChainDesc.BufferDesc.Scaling/*모니터 해상도에 맞게 이미지 늘림 방식*/ = DXGI_MODE_SCALING_UNSPECIFIED;
 
-	D3D_FEATURE_LEVEL finaFeature;
+	//swapChainDesc.Windowed/*창 모드 여부*/ = true;
+	//swapChainDesc.SwapEffect/*프론트 <-> 백 버퍼 변경할 때 효과 넣을지 설정*/ = DXGI_SWAP_EFFECT_DISCARD;
+	//swapChainDesc.SampleDesc.Count/*멀티샘플링 할지 여부 -> 1 안함*/ = 1;
+	//swapChainDesc.SampleDesc.Quality/*멀티샘플링 품질 설정 -> 기본 값(count - 1)*/= 0;
+	//swapChainDesc.OutputWindow/*DX가 그릴 창 핸들*/= hwnd;
+	//swapChainDesc.Flags/*스왑 체인 동작에 대한 옵션을 설명하는 DXGI_SWAP_CHAIN_FLAG*/= 0;
 
-
-	D3D11CreateDevice(nullptr,D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE);
-	
-
-	// 디바이스 / 컨텍스트 / 스압체인 생성
-	auto result = D3D11CreateDeviceAndSwapChain(
-		nullptr,
-		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE,
-		nullptr,
-		Flag,
-		level,
-		ARRAYSIZE(level),
-		D3D11_SDK_VERSION,
-		&swapChainDesc,
-		&swapChain,
-		&device,
-		&finaFeature,
-		&context
-		);	// 디바이스, 컨텍스트 , 스압체인을 한번에 만든다. 자세한 내용은 따로따로 해야한다.
-
-	// 실패여부 확인
-	S_OK;
-	E_FAIL;
-	if (FAILED(result))
+	D3D_FEATURE_LEVEL finaFeature = {};
+	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, nullptr, Flag, level, ARRAYSIZE(level), D3D11_SDK_VERSION, &device, &finaFeature, &context)))
 	{
-		MessageBox(nullptr,TEXT("Failed to create device."), TEXT("Error"),MB_OK);
+		// D3D11CreateDevice의 원형 설명
+		/*
+		HRESULT WINAPI D3D11CreateDevice(
+		_In_opt_ IDXGIAdapter*										pAdapter,			. 장치를 생성할 때 사용될 비디오 어댑터의 대한 포인터 0/nullptr 을 넣으면 기본 어댑터가 지정된다.
+		D3D_DRIVER_TYPE												DriverType,			. 생성 할 드라이버 유형을 나타내는 D3D_DRIVER_TYPE
+		HMODULE														Software,			. 소프트웨어 래스터라이저를 구현하는 DLL에 대한 핸들
+		UINT														Flags,				. D3D11_CREATE_DEVICE_FLAG
+		_In_reads_opt_( FeatureLevels ) CONST D3D_FEATURE_LEVEL*	pFeatureLevels,		. 생성을 시도하는 기능 수준의 순서를 결정하는 D3D_FEATURE_LEVEL 배열에 대한 포인터 고버젼-저버전 순으로 정렬한다.
+		UINT														FeatureLevels,		. pFeatureLevels의 배열 요소의 개수
+		UINT														SDKVersion,			. SDK의 버전 D3D11_SDK_VERSION 으로 가능
+		_COM_Outptr_opt_ ID3D11Device**								ppDevice,			. 디바이스 포인터
+		_Out_opt_ D3D_FEATURE_LEVEL*								pFeatureLevel,		. 성공하면 성공한 pFeatureLevels 배열 에서 첫 번째 D3D_FEATURE_LEVEL 을 반환
+		_COM_Outptr_opt_ ID3D11DeviceContext**						ppImmediateContext	.
+		);
+		*/
+		MessageBox(nullptr, TEXT("D3D11CreateDevice Error"), TEXT("Error"), MB_OK);
 		exit(-1);
 	}
+
+	GUID guid = {};
+	IDXGIDevice* dxgiDevice = nullptr;
+	if (FAILED(device->QueryInterface(__uuidof(IDXGIDevice), (void**)&dxgiDevice)))
+	{
+		MessageBox(nullptr, TEXT("device->QueryInterface Error"), TEXT("Error"), MB_OK);
+		exit(-1);
+	}
+	
+	IDXGIAdapter* adapter = nullptr;
+	if (FAILED(dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&adapter)))
+	{
+		MessageBox(nullptr, TEXT("dxgiDevice->GetParent Error"), TEXT("Error"), MB_OK);
+		exit(-1);
+	};
+
+	IDXGIFactory2* dxgiFactory = nullptr;
+	if (FAILED(adapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory)))
+	{
+		MessageBox(nullptr, TEXT("adapter->GetParent Error"), TEXT("Error"), MB_OK);
+		exit(-1);
+	}
+	DXGI_SWAP_CHAIN_FULLSCREEN_DESC Desc = {};
+	Desc.RefreshRate.Denominator = 1;
+	Desc.RefreshRate.Numerator = 60;
+	Desc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	Desc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	Desc.Windowed = true;
+
+	// https://docs.microsoft.com/en-us/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
+	DXGI_SWAP_CHAIN_DESC1 swapchainDesc = {};
+	swapchainDesc.Width			= ::width;
+	swapchainDesc.Height		= ::height;
+	swapchainDesc.Format		= DXGI_FORMAT_R8G8B8A8_UNORM;
+	swapchainDesc.Stereo		= FALSE;
+	swapchainDesc.SampleDesc.Count		= 1;
+	swapchainDesc.SampleDesc.Quality	= 0;
+	swapchainDesc.BufferUsage	= DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapchainDesc.BufferCount	= 1;
+	swapchainDesc.Scaling		= DXGI_SCALING_ASPECT_RATIO_STRETCH;
+	swapchainDesc.SwapEffect	= DXGI_SWAP_EFFECT_DISCARD;
+	swapchainDesc.AlphaMode		= DXGI_ALPHA_MODE_STRAIGHT;
+	swapchainDesc.Flags			= 0;
+
+	if (FAILED(dxgiFactory->CreateSwapChainForHwnd(device, hwnd, &swapchainDesc, nullptr, nullptr, &swapChain)))
+	{
+		MessageBox(nullptr, TEXT("dxgiFactory->CreateSwapChainForHwnd Error"), TEXT("Error"), MB_OK);
+		exit(-1);
+	}
+
+
+	// 디바이스 / 컨텍스트 / 스압체인 생성
+	/*
+		auto result = D3D11CreateDeviceAndSwapChain(
+			nullptr,	
+			D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE,
+			nullptr,
+			Flag,
+			level,
+			ARRAYSIZE(level),
+			D3D11_SDK_VERSION,
+			&swapChainDesc,
+			&swapChain,
+			&device,
+			&finaFeature,
+			&context
+			);	// 디바이스, 컨텍스트 , 스압체인을 한번에 만든다. 자세한 내용은 따로따로 해야한다.
+	*/
 }
 
 // 윈도우 프로시저 함수
@@ -210,18 +275,22 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_PAINT: // 창을 그려야 할 때
 	{
+		// PAINTSTRUCT = 창의 클라이언트 영역에 그리는데 필요한 데이터의 구조체
 		PAINTSTRUCT ps;
+		// BeginPaint 함수는 인자로 덪칠할 창의 핸들과 정보를 받아올 페인트구조체를 넣어 그릴 준비를 해준다..
 		HDC hdc = BeginPaint(hwnd, &ps);
 
-		// All painting occurs here, between BeginPaint and EndPaint.
+		// All painting occurs here, between BeginPaint and EndPaint. / 모든 그리는 것은 Beginpaint 와 EndPaint 사이에서 일어난다.
 
+		// FillRect 에서는 핸들의 프로그램에 ps안의 클라이언트 영역의 대한 정보를 토대로 브러쉬로 사각형(클라이언트영역)을 채운다.
 		FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-
+		
+		// 페인팅 끝
 		EndPaint(hwnd, &ps);
 		return 0;
 	}
 	}
 
-
-	return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	// 메시지를 처리한 결과를 리턴하며 이 결과는 메시지에 따라 다르다. 윈도우 프로시저는 이 함수가 리턴한 값을 다시 리턴해 주어야 한다.
+	return DefWindowProc(hwnd/*메시지를 받은 윈도우의 핸들*/, uMsg/*메시지 구조체*/, wParam/*메시지 정보*/, lParam/*메시지 정보*/);
 }
