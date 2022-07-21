@@ -2,10 +2,17 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Unreal Study Note\DirectX11\RenderEngine\x64\Debug\Application.exe</FullPath>
+      <FullPath>C:\LeeHoGeun\DirectX11\RenderEngine\x64\Debug\Application.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
-  <ContentFiles />
+  <ContentFiles>
+    <ContentFile>
+      <FullPath>C:\LeeHoGeun\DirectX11\RenderEngine\x64\Debug\PixelShader.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\LeeHoGeun\DirectX11\RenderEngine\x64\Debug\VertexShader.cso</FullPath>
+    </ContentFile>
+  </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />
 </Project>
