@@ -240,13 +240,6 @@ void InializeDevice()
 		exit(-1);
 	}
 
-	DXGI_SWAP_CHAIN_FULLSCREEN_DESC Desc = {};
-	Desc.RefreshRate.Denominator = 1;
-	Desc.RefreshRate.Numerator = 60;
-	Desc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-	Desc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-	Desc.Windowed = true;
-
 	// https://docs.microsoft.com/en-us/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
 	DXGI_SWAP_CHAIN_DESC1 swapchainDesc = {};
 	swapchainDesc.Width = ::width;
@@ -257,8 +250,8 @@ void InializeDevice()
 	swapchainDesc.SampleDesc.Quality = 0;
 	swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swapchainDesc.BufferCount = 2;
-	swapchainDesc.Scaling = DXGI_SCALING_NONE;
-	swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	swapchainDesc.Scaling/*백 버퍼의 크기가 대상 출력과 같지 않은 경우 크기 조정 동작 - > 비율에 맞게 늘린다.*/= DXGI_SCALING_STRETCH;
+	swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swapchainDesc.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED;
 	swapchainDesc.Flags = 0;
 
@@ -465,8 +458,8 @@ void InitializeScene()
 
 void Draw()
 {
-	// 현재 사용된 swapCahin을 때로 빼내는 상황에서는 매번 렌더타겟을 지정을 해줘야한다.
-	context->OMSetRenderTargets(1, &RTV, nullptr);
+	// 현재 사용된 swapCahin에서 스압체인 이펙트에서 백버퍼의 내용을 버리는 것을 하면 켜줘야 한다. 또한 밑의 Present1을 쓰면 다시 버퍼의 내용을 플래스 수정을 해야한다.
+	//context->OMSetRenderTargets(1, &RTV, nullptr);
 
 	//리소스를 생성할땐 device를 쓰며, 사용할 땐 context를 사용한다.
 	// 1. beginrender	-> 배경 지우기.
@@ -491,7 +484,6 @@ void Draw()
 
 	context->Draw(vertexCount,0); // 드로우 콜  드로우콜을 하면 렌더링 파이프라인 토대로 프레임워크가 돈다.
 
-
 	// Endrender	-> 스압체인 교환.
-	swapChain->Present(/*vSync 사용유무(모니터 주사율과 동기화를 할것인가) = 사용한다 1*/1u, 0);
+	swapChain->Present(/*vSync 사용유무(모니터 주사율과 동기화를 할것인가) = 사용한다 1*/1u,0u);
 }

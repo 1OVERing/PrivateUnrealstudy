@@ -17,8 +17,8 @@
 
 // 여기서 float3로 써도 구조상			
 //										system value(시맨틱) SV_가 붙은 애들은 시스템에서 정해주는 애들이다.
-float4 main( float3 pos : POSITION ) : SV_POSITION
+float4 main(float3 pos : POSITION) : SV_POSITION
 {
-	
-    return float4(pos,1);
+    
+    return float4(pos, 1);
 }
