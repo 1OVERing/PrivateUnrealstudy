@@ -407,7 +407,7 @@ void InitializeScene()
 
 	 // VS
 	ID3DBlob* vertexShaderBuffer = nullptr;
-	if (auto error = D3DCompileFromFile(TEXT("VertexShader.hlsl"), nullptr, nullptr, "main", "vs_5_0", 0, 0,/*컴파일된 이진파일*/&vertexShaderBuffer,/*메모리*/nullptr))
+	if (auto error = D3DCompileFromFile(TEXT("Shader//VertexShader.hlsl"), nullptr, nullptr, "main", "vs_5_0", 0, 0,/*컴파일된 이진파일*/&vertexShaderBuffer,/*메모리*/nullptr))
 	{
 		MessageBox(nullptr, GetErrorMessage(error).c_str(), TEXT("Error"), MB_OK);
 		exit(-1);
@@ -421,7 +421,7 @@ void InitializeScene()
 
 	// PS
 	ID3DBlob* PixelShaderBuffer = nullptr;
-	if (auto error = D3DCompileFromFile(TEXT("PixelShader.hlsl"), nullptr, nullptr, "main", "ps_5_0", 0, 0,/*컴파일된 이진파일*/&PixelShaderBuffer,/*메모리*/nullptr))
+	if (auto error = D3DCompileFromFile(TEXT("Shader//PixelShader.hlsl"), nullptr, nullptr, "main", "ps_5_0", 0, 0,/*컴파일된 이진파일*/&PixelShaderBuffer,/*메모리*/nullptr))
 	{
 		MessageBox(nullptr, GetErrorMessage(error).c_str(), TEXT("Error"), MB_OK);
 		exit(-1);

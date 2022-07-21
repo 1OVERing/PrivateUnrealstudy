@@ -19,10 +19,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="Shader\PixelShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="Shader\VertexShader.hlsl">
       <Filter>HLSL</Filter>
     </FxCompile>
   </ItemGroup>
