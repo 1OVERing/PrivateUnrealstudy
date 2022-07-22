@@ -2,33 +2,9 @@
 #define UNICODE
 #endif
 
-#include <windows.h>
-#include <tchar.h>
-#include <string>
+#include <Device/Window.h>
 
-#include <time.h> // 
-#include <cmath>  // 삼각함수 들을 사용하기 위한 헤더 추가
-
-// DirectX11 헤더.
-#include <d3d11.h>
-#include <d3dcompiler.h>	// 쉐이더 컴파일러 기능 제공
-#include <dxgi1_3.h>	// swapchain 개별생성을 DXGI클래스. 팩토리 어댑터 위한 헤더
-#include <comdef.h>	//
-
-// lib 링킹	밑처럼 써서 lib를 가져올 수 있지만 옵션의 링크에 입력에 추가종속성에서 추가 하면된다.
-#pragma comment(lib,"d3d11.lib")
-#pragma comment(lib,"d3dcompiler.lib")
-#pragma comment(lib,"dxgi.lib")
-
-void InializeDevice();
-
-// 변수 선언
-std::wstring className = TEXT("Direct3D Window class");		// 창 클래스 이름
-std::wstring TitleName = TEXT("Direct3D Render Engine");	// 창 타이틀 이름
-HWND hwnd = nullptr;				// 프로그램 핸들
-HINSTANCE hInstance = nullptr;	// 프로그램 핸들 인스턴스
-long width = 1280;					// 창의 너비
-long height = 720;					// 창의 높이
+using STL::Window;
 
 // DX 변수 선언
 ID3D11Device* device = nullptr;
@@ -53,7 +29,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 void InitializeScene();
 void Draw();
 
-
+void InializeDevice(const STL::Window& window);
 
 // 에러 메시지 출력을 위한 함수
 std::wstring GetErrorMessage(HRESULT hr)
@@ -79,58 +55,11 @@ wwinmain함수 선언의 파라미터값을 긇어와 사용해준다.*/
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
-	//=================================================================================================== 창 생성
-	::hInstance = hInstance; // ::(스코프 : 현재는 전역변수를 사용하기 위해 붙인다.)
-
-	// Register the window class.
-	// WNDCLASS = 윈도우 창에 대해 필요한 데이터를 가진 구조체
-	WNDCLASS wc = { };
-
-	// 윈도우프로시저 ( 창에대한 메세지 처리 함수 ) // Invoke(간접호출 방식) 위임(Delegate)/ callback 방식. 함수의 위치를 알려주고 특정 상황에 윈도우가 호출해준다.
-	wc.lpfnWndProc = WindowProc;
-	// 프로그램의 핸들 인스턴스
-	wc.hInstance = hInstance;
-	// 윈도우 창의 이름
-	wc.lpszClassName = className.c_str();
-
-	// (클래스 이름 등록) 사용할 윈도우 창에 대한 정보를 담을 구조체를 레지스트를 등록을 시켜준다.
-	RegisterClass(&wc);
-
-
-	// window 창에 대한 크기 조정
-	// RECT는 직사각형의 데이터를 가진 구조체 (Left,Top,Right(너비),Bottom(높이));
-	RECT rect = { 0,0,width ,height };
-	// 스타일에 맞춰서 클라이언트 영역의 이 내가 원하는 크기만큼 나오게 바꿔준다.
-	AdjustWindowRect(&rect/*window 창의 크기 구조체*/, WS_OVERLAPPEDWINDOW/*창의 대한 스타일*/, FALSE/*타이틀바의 대한 스타일*/);
-
-	// 저정된 직사각형 크기로 창 가로/세로 크기 구한다.
-	long windowWidth = rect.right - rect.left;
-	long windowHeight = rect.bottom - rect.top;
-
-	// 화면의 중심에서 창을 그리기 위한 생성좌표 구하기
-	long xpos = (GetSystemMetrics(SM_CXSCREEN) - windowWidth) / 2; // GetSystemMetrics(SM_CXSCREEN) = window에게 지금 윈도우 창의 위치를 묻는 함수
-	long ypos = (GetSystemMetrics(SM_CYSCREEN) - windowHeight) / 2; // SM_CXSCREEN = X SM_CYSCREEN = Y
-
-	// Create the window.
-	::hwnd = CreateWindowEx(0,/*Optional window styles.*/className.c_str()/*Window class*/, TitleName.c_str()/*Window text*/, WS_OVERLAPPEDWINDOW/*Window style*/,
-		// setting window Size and position
-		xpos, ypos, windowWidth, windowHeight,
-
-		nullptr,		// Parent window	( 부모 창에 대한 포인터 )
-		nullptr,		// Menu				( 메뉴창 포인터 )
-		hInstance,		// Instance handle	( 프로그램 핸들 인스턴스 )
-		nullptr			// Additional application data	( 부가 데이터 ) 창에 구조체같은 데이터를 넘겨 사용할 수 있다.
-	);
-
-	if (::hwnd == nullptr)
-	{
-		return 0;
-	}
-	/////////////////////////////////////wc.hbrBackground = WHITE_BRUSH;
-	ShowWindow(::hwnd, SW_SHOW); // 창 띄우기
-	UpdateWindow(::hwnd);	// 창 업데이트
+	//=================================================================================================== Windows 창 생성 및 설정
+	Window* window = new Window(hInstance,1280,720,L"GameRender", WindowProc);
+	window->Intialize();
 	//=================================================================================================== DX 초기화
-	InializeDevice();
+	InializeDevice(*window);
 	//=================================================================================================== 장면 초기화
 	InitializeScene();
 	//=================================================================================================== 메시지 루프
@@ -153,14 +82,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 		}
 	}
 
-	// 창 등록 해제
-	UnregisterClass(className.c_str(), hInstance);
-
+	delete window;
 	return 0;
 }
 
 // DX 디바이스 초기화
-void InializeDevice()
+void InializeDevice(const STL::Window& window)
 {
 	unsigned int Flag = 0;
 
@@ -242,8 +169,8 @@ void InializeDevice()
 
 	// https://docs.microsoft.com/en-us/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
 	DXGI_SWAP_CHAIN_DESC1 swapchainDesc = {};
-	swapchainDesc.Width = ::width;
-	swapchainDesc.Height = ::height;
+	swapchainDesc.Width = window.Width();
+	swapchainDesc.Height = window.Height();
 	swapchainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	swapchainDesc.Stereo = FALSE;
 	swapchainDesc.SampleDesc.Count = 1;
@@ -255,7 +182,7 @@ void InializeDevice()
 	swapchainDesc.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED;
 	swapchainDesc.Flags = 0;
 
-	if (auto error = FAILED(dxgiFactory->CreateSwapChainForHwnd(device, hwnd, &swapchainDesc, nullptr, nullptr, &swapChain)))
+	if (auto error = FAILED(dxgiFactory->CreateSwapChainForHwnd(device, window.Handle(), &swapchainDesc, nullptr, nullptr, &swapChain)))
 	{
 		MessageBox(nullptr, GetErrorMessage(error).c_str(), TEXT("Error"), MB_OK);
 		exit(-1);
@@ -309,16 +236,13 @@ void InializeDevice()
 	D3D11_VIEWPORT viewPort = {};
 	viewPort.TopLeftX = 0.f;
 	viewPort.TopLeftY = 0.f;
-	viewPort.Width = static_cast<float>(::width);
-	viewPort.Height = static_cast<float>(::height);
+	viewPort.Width = static_cast<float>(window.Width());
+	viewPort.Height = static_cast<float>(window.Height());
 	viewPort.MinDepth = 0.f;
 	viewPort.MaxDepth = 1.f;
 
 	// Setting ViewPort
 	context->RSSetViewports(1, &viewPort);
-
-
-
 }
 
 // 윈도우 프로시저 함수

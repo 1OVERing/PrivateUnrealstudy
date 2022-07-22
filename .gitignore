@@ -1,5 +1,4 @@
 DirectX11/RenderEngine/.vs/
-DirectX11/RenderEngine/Application/Bin/
-DirectX11/RenderEngine/Application/Obj/
-DirectX11/RenderEngine/Engine/Bin/
-DirectX11/RenderEngine/Engine/Obj/
+DirectX11/RenderEngine/Binaries/
+DirectX11/RenderEngine/Intermediate/
+DirectX11/RenderEngine/Lib

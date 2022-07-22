@@ -71,20 +71,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>../Bin/$(Configuration)/$(Platform)</OutDir>
-    <IntDir>../Obj/$(Configuration)/$(Platform)</IntDir>
+    <OutDir>..\..\Binaries\$(Platform)$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>..\..\Intermediate\$(Platform)$(Configuration)\$(ProjectName)</IntDir>
+    <LibraryPath>$(SolutionDir)\Lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Engine\Include\Source\;$(IncludePath)\;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>../Bin/$(Configuration)/$(Platform)</OutDir>
-    <IntDir>../Obj/$(Configuration)/$(Platform)</IntDir>
+    <OutDir>..\..\Binaries\$(Platform)$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>..\..\Intermediate\$(Platform)$(Configuration)\$(ProjectName)</IntDir>
+    <LibraryPath>$(SolutionDir)\Lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Engine\Include\Source\;$(IncludePath)\;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>../Bin/$(Configuration)/$(Platform)</OutDir>
-    <IntDir>../Obj/$(Configuration)/$(Platform)</IntDir>
+    <OutDir>..\..\Binaries\$(Platform)$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>..\..\Intermediate\$(Platform)$(Configuration)\$(ProjectName)</IntDir>
+    <LibraryPath>$(SolutionDir)\Lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Engine\Include\Source\;$(IncludePath)\;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>../Bin/$(Configuration)/$(Platform)</OutDir>
-    <IntDir>../Obj/$(Configuration)/$(Platform)</IntDir>
+    <OutDir>..\..\Binaries\$(Platform)$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>..\..\Intermediate\$(Platform)$(Configuration)\$(ProjectName)</IntDir>
+    <LibraryPath>$(SolutionDir)\Lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\Engine\Include\Source\;$(IncludePath)\;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,7 +104,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Lib\Engine\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>4.0</ShaderModel>
@@ -116,7 +125,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Lib\Engine\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>4.0</ShaderModel>
@@ -132,7 +142,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Lib\Engine\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>4.0</ShaderModel>
@@ -152,7 +163,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Engine.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\Lib\Engine\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <ShaderModel>4.0</ShaderModel>
@@ -182,6 +194,11 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Engine\Include\Engine.vcxproj">
+      <Project>{9ba7b9a5-e92a-4e2f-9e5a-305090ff79c3}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
